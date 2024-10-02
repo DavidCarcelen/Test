@@ -17,4 +17,17 @@ public class UserMapper {
 
         return user;
     }
+
+    public static UserDTO toDTO(User user){
+        UserDTO userDTO = new UserDTO(user.getName(),user.getLastName());
+        return userDTO;
+    }
+
+    public static User updateUser (User user, UserDTO userDTO){
+        user.setName(userDTO.getName());
+        user.setLastName(userDTO.getLastName());
+        user.setPassword(userDTO.getPassword());
+        user.setAge(userDTO.getAge());
+        return user;
+    }
 }
