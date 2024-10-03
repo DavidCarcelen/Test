@@ -10,8 +10,6 @@ import test.hackathonTest.model.mappers.UserMapper;
 import test.hackathonTest.model.repository.UserRepository;
 import test.hackathonTest.model.services.UserService;
 
-import java.util.Optional;
-
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -23,27 +21,23 @@ public class UserServiceImpl implements UserService {
         User entityUser = UserMapper.toEntity(userDTO);
         userRepository.save(entityUser);
     }
-
+    @Override
     public void updateUser(UserDTO userDTO) {
-        User userToUpdate = userRepository.findByEmail(userDTO.getEmail())
-                .orElseThrow(() -> new EmailNotFoundException("Email not found: " + userDTO.getEmail()));
+        User userToUpdate = userFinder(userDTO.getEmail());
         User updatedUser = UserMapper.updateUser(userToUpdate, userDTO);
         userRepository.save(updatedUser);
     }
 
     @Override
     public void deleteUser(String email) {
-        User userToDelete = userRepository.findByEmail(email)
-                .orElseThrow(() -> new EmailNotFoundException("Email not found: " + email));
+        User userToDelete = userFinder(email);
         userRepository.delete(userToDelete);
     }
 
     @Override
     public UserDTO getUser(String email) {
-        User userToReturn = userRepository.findByEmail(email)
-                .orElseThrow(() -> new EmailNotFoundException("Email not found: " + email));
-        UserDTO userDTO = UserMapper.toDTO(userToReturn);
-        return userDTO;
+        User userToReturn = userFinder(email);
+        return UserMapper.toDTO(userToReturn);
     }
 
     public void availabilityChecker(String email) {
@@ -51,6 +45,11 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(user -> {
                     throw new RegisteredEmailException("Email already registered:" + email);
                 });
+    }
+    public User userFinder (String email){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EmailNotFoundException("Email not found: " + email));
+        return user;
     }
 
 

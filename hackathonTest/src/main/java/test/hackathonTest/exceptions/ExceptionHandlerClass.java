@@ -14,7 +14,7 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
     public ResponseEntity<String> handlerRegisteredEmailException(RegisteredEmailException e, WebRequest request) {
         String message = e.getMessage() + " " + request.getDescription(false);
 
-        return new ResponseEntity<String>(message, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler(EmailNotFoundException.class)

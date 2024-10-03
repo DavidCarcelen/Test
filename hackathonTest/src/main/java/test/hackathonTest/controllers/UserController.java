@@ -24,13 +24,13 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUser(@RequestBody String email){
+    public ResponseEntity<String> deleteUser(@RequestParam String email){
         userService.deleteUser(email);
         return ResponseEntity.ok("user deleted");
     }
 
     @GetMapping("/getUser")
-    public UserDTO getUser(@RequestBody String email){
+    public UserDTO getUser(@RequestParam String email){
         UserDTO userDTO = userService.getUser(email);
         return userDTO;
     }
