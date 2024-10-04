@@ -10,5 +10,11 @@ public class ActivityDTO {
     private String name;
     private String about;
     private int maxUsers;
-    private boolean full;
+    private int inUsers;
+
+    public ActivityDTO(String name, String about, int maxUsers){
+        this.name = name;
+        this.about = about;
+        this.maxUsers = maxUsers;
+    }
 }

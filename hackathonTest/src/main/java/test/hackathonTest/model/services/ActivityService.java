@@ -5,6 +5,6 @@ import test.hackathonTest.model.dto.UserDTO;
 
 public interface ActivityService {
     void newActivity(ActivityDTO activityDTO);
-    void updateActivity(ActivityDTO activityDTO);
-    void deleteActivity(String name);
+    void updateActivity(long id, ActivityDTO activityDTO);
+    void deleteActivity(long id);
 }

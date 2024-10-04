@@ -28,6 +28,3 @@ public class User {
     private List <Long> activityIdList;
 
 }
-//@NoArgsConstructor: Genera un constructor sin argumentos.
-//@AllArgsConstructor: Genera un constructor con todos los campos.
-//@RequiredArgsConstructor: Genera un constructor solo para los campos que son final o están marcados como @NonNull.

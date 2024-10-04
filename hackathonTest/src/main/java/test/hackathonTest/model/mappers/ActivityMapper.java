@@ -1,9 +1,7 @@
 package test.hackathonTest.model.mappers;
 
 import test.hackathonTest.model.domain.Activity;
-import test.hackathonTest.model.domain.User;
 import test.hackathonTest.model.dto.ActivityDTO;
-import test.hackathonTest.model.dto.UserDTO;
 
 public class ActivityMapper {
     public static Activity toEntity(ActivityDTO activityDTO) {
@@ -14,5 +12,12 @@ public class ActivityMapper {
                 .build();
 
         return activity;
+    }
+
+    public static Activity updateActivity (Activity activityToUpdate, ActivityDTO activityDTO){
+        activityToUpdate.setAbout(activityDTO.getAbout());
+        activityToUpdate.setMaxUsers(activityDTO.getMaxUsers());
+
+        return activityToUpdate;
     }
 }

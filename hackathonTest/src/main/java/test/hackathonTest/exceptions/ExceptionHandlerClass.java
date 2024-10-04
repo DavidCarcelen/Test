@@ -17,8 +17,8 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(EmailNotFoundException.class)
-    public ResponseEntity<String> EmailNotFoundException(EmailNotFoundException e, WebRequest request) {
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<String> IdNotFoundException(IdNotFoundException e, WebRequest request) {
         String message = e.getMessage() + " " + request.getDescription(false);
 
         return new ResponseEntity<String>(message, HttpStatus.NOT_FOUND);

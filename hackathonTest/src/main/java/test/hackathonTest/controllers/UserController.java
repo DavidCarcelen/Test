@@ -7,31 +7,32 @@ import test.hackathonTest.model.dto.UserDTO;
 import test.hackathonTest.model.services.UserService;
 
 @RestController
+@RequestMapping("/activityApp/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
-    @PutMapping("/newUser")
+    @PostMapping
     public ResponseEntity<String> newUser(@RequestBody UserDTO userDTO){
         userService.newUser(userDTO);
         return ResponseEntity.ok("user created");
     }
 
-    @PutMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO){
-        userService.updateUser(userDTO);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody UserDTO userDTO){
+        userService.updateUser(id, userDTO);
         return ResponseEntity.ok("user updated");
     }
 
-    @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUser(@RequestParam String email){
-        userService.deleteUser(email);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable long id){
+        userService.deleteUser(id);
         return ResponseEntity.ok("user deleted");
     }
 
-    @GetMapping("/getUser")
-    public UserDTO getUser(@RequestParam String email){
-        UserDTO userDTO = userService.getUser(email);
+    @GetMapping("/{id}")
+    public UserDTO getUser(@PathVariable long id){
+        UserDTO userDTO = userService.getUser(id);
         return userDTO;
     }
 

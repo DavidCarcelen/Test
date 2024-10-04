@@ -2,7 +2,7 @@ package test.hackathonTest.model.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import test.hackathonTest.exceptions.EmailNotFoundException;
+import test.hackathonTest.exceptions.IdNotFoundException;
 import test.hackathonTest.exceptions.RegisteredEmailException;
 import test.hackathonTest.model.domain.User;
 import test.hackathonTest.model.dto.UserDTO;
@@ -22,21 +22,24 @@ public class UserServiceImpl implements UserService {
         userRepository.save(entityUser);
     }
     @Override
-    public void updateUser(UserDTO userDTO) {
-        User userToUpdate = userFinder(userDTO.getEmail());
+    public void updateUser(long id, UserDTO userDTO) {
+        User userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("User not found with ID: " + id));
         User updatedUser = UserMapper.updateUser(userToUpdate, userDTO);
         userRepository.save(updatedUser);
     }
 
     @Override
-    public void deleteUser(String email) {
-        User userToDelete = userFinder(email);
-        userRepository.delete(userToDelete);
+    public void deleteUser(long id) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("User not found with ID: " + id));
+        userRepository.deleteById(id);
     }
 
     @Override
-    public UserDTO getUser(String email) {
-        User userToReturn = userFinder(email);
+    public UserDTO getUser(long id) {
+        User userToReturn =  userRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("User not found with ID: " + id));
         return UserMapper.toDTO(userToReturn);
     }
 
@@ -45,11 +48,6 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(user -> {
                     throw new RegisteredEmailException("Email already registered:" + email);
                 });
-    }
-    public User userFinder (String email){
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new EmailNotFoundException("Email not found: " + email));
-        return user;
     }
 
 
