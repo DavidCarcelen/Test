@@ -23,7 +23,7 @@ public class Activity {
     private String name;
     private String about;
     private int maxUsers;
-    private int inUsers;
+    private int inUsers = 0;
 
 
 }

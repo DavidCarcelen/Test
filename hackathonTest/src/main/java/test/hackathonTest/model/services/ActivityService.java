@@ -7,5 +7,5 @@ public interface ActivityService {
     void newActivity(ActivityDTO activityDTO);
     void updateActivity(long id, ActivityDTO activityDTO);
     void deleteActivity(long id);
-    void addUser(long id);
+    String addUser(long id);
 }

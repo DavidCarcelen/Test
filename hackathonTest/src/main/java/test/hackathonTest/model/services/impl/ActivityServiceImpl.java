@@ -40,12 +40,13 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void addUser(long idActivity) {
+    public String addUser(long idActivity) {
         Activity activity = activityRepository.findById(idActivity)
                 .orElseThrow(() -> new IdNotFoundException("Activity not found with ID: " + idActivity));
         if (activity.getMaxUsers() > activity.getInUsers()) {
             activity.setInUsers(activity.getInUsers() + 1);
         } else throw new ActivityFullException("There are no places left for this activity");
+        return activity.getName();
     }
 
 }

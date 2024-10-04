@@ -15,7 +15,7 @@ public class UserDTO {
     private String password;
     private String email;
     private int age;
-    private List<Long> activityIdList;
+    private List<String> activityIdList;
 
     public UserDTO(String email){
         this.email = email;

@@ -39,11 +39,10 @@ public class UserController {
         return userDTO;
     }
 
-    @PutMapping("/signup{idUser},{idActivity}")
-    public ResponseEntity<String> requestUser(@PathVariable long idUser, @PathVariable long idActivity){
-        activityService.addUser(idActivity);
+    @PutMapping("/signup/{idUser}/{idActivity}")
+    public ResponseEntity<String> signUpForActivity(@PathVariable long idUser, @PathVariable long idActivity){
         userService.signUp(idUser, idActivity);
-        return ResponseEntity.ok("user updated");
+        return ResponseEntity.ok("user signed up for activity");
     }
 
 }

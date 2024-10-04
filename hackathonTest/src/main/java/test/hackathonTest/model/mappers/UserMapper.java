@@ -3,6 +3,7 @@ package test.hackathonTest.model.mappers;
 import test.hackathonTest.model.domain.User;
 import test.hackathonTest.model.dto.UserDTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserMapper {
@@ -25,7 +26,7 @@ public class UserMapper {
         userDTO.setLastName(user.getLastName());
         userDTO.setPassword(user.getPassword());
         userDTO.setAge(user.getAge());
-        userDTO.setActivityIdList(user.getActivityIdList());
+        userDTO.setActivityIdList(user.getActivityList());
         return userDTO;
     }
 
