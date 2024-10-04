@@ -18,10 +18,17 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(IdNotFoundException.class)
-    public ResponseEntity<String> IdNotFoundException(IdNotFoundException e, WebRequest request) {
+    public ResponseEntity<String> handlerIdNotFoundException(IdNotFoundException e, WebRequest request) {
         String message = e.getMessage() + " " + request.getDescription(false);
 
         return new ResponseEntity<String>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ActivityFullException.class)
+    public ResponseEntity<String> handlerActivityFullException(ActivityFullException e, WebRequest request) {
+        String message = e.getMessage() + " " + request.getDescription(false);
+
+        return new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
     }
 
 }

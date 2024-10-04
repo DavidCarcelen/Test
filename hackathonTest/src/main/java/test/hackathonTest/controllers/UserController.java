@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import test.hackathonTest.model.dto.UserDTO;
+import test.hackathonTest.model.services.ActivityService;
 import test.hackathonTest.model.services.UserService;
 
 @RestController
@@ -12,6 +13,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ActivityService activityService;
     @PostMapping
     public ResponseEntity<String> newUser(@RequestBody UserDTO userDTO){
         userService.newUser(userDTO);
@@ -34,6 +37,13 @@ public class UserController {
     public UserDTO getUser(@PathVariable long id){
         UserDTO userDTO = userService.getUser(id);
         return userDTO;
+    }
+
+    @PutMapping("/signup{idUser},{idActivity}")
+    public ResponseEntity<String> requestUser(@PathVariable long idUser, @PathVariable long idActivity){
+        activityService.addUser(idActivity);
+        userService.signUp(idUser, idActivity);
+        return ResponseEntity.ok("user updated");
     }
 
 }
