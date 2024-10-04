@@ -7,6 +7,8 @@ import test.hackathonTest.model.domain.Activity;
 import test.hackathonTest.model.dto.ActivityDTO;
 import test.hackathonTest.model.services.ActivityService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/activityApp/activity")
 public class ActivityController {
@@ -29,5 +31,17 @@ public class ActivityController {
     public ResponseEntity<String> deleteActivity (@PathVariable long id){
         activityService.deleteActivity(id);
         return ResponseEntity.ok("activity deleted");
+    }
+
+    @GetMapping("/export")
+    public ResponseEntity<List<Activity>> exportActivities() {
+        List<Activity> activities = activityService.getAllActivities();
+        return ResponseEntity.ok(activities);
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<String> importActivities(@RequestBody List<Activity> activities) {
+        activityService.saveAllActivities(activities);
+        return ResponseEntity.ok("Activities imported");
     }
 }

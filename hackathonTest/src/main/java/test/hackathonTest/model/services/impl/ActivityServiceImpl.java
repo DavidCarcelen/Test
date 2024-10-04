@@ -11,6 +11,8 @@ import test.hackathonTest.model.repository.ActivityRepository;
 import test.hackathonTest.model.services.ActivityService;
 import test.hackathonTest.model.services.UserService;
 
+import java.util.List;
+
 @Service
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
@@ -47,6 +49,14 @@ public class ActivityServiceImpl implements ActivityService {
             activity.setInUsers(activity.getInUsers() + 1);
         } else throw new ActivityFullException("There are no places left for this activity");
         return activity.getName();
+    }
+    @Override
+    public List<Activity> getAllActivities() {
+        return activityRepository.findAll();
+    }
+    @Override
+    public void saveAllActivities(List<Activity> activities) {
+        activityRepository.saveAll(activities);
     }
 
 }
